@@ -1,6 +1,6 @@
 {
   "name": "cal-syriac",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cal to Syriac Unicode conversion",
   "main": "build/cal-syriac.js",
   "main݂Min": "build/cal-syriac.min.js",
@@ -59,9 +59,9 @@
   },
   "homepage": "https://github.com/peshitta/cal-syriac#readme",
   "dependencies": {
-    "aramaic-mapper": "^1.0.4",
+    "aramaic-mapper": "^1.0.5",
     "cal-code-util": "^1.0.5",
-    "syriac-code-util": "^1.0.1"
+    "syriac-code-util": "^1.0.2"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-beta.1",
