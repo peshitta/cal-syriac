@@ -60,11 +60,57 @@ const westernSyriacWriting = new Writing(
 );
 
 /**
+ * @private
+ * Maps input character to Syriac char
+ * @param { string } c input character
+ * @param { Object.<string, string> } fromTo mapping dictionary
+ * @returns { string } Syriac mapped char
+ */
+const map = (c, fromTo) => fromTo[c] || c;
+
+/**
+ * @private
+ * Customized mapping callback
+ * @param { string } word input word
+ * @param { number } i current index in the word
+ * @param { Object.<string, string> } fromTo mapping dictionary
+ * @returns { string } Syriac mapped char
+ */
+const westernCallback = (word, i, fromTo) => {
+  let m = '';
+  const c = word.charAt(i);
+  switch (c) {
+    case 'y':
+      m =
+        word.charAt(i + 1) === 'i'
+          ? '\u073A\u071D' // Western Syriac stores as (iy)
+          : map(c, fromTo);
+      break;
+    case 'w':
+      m =
+        word.charAt(i + 1) === 'u'
+          ? '\u073D\u0718' // Western Syriac stores as (uw)
+          : word.charAt(i + 1) === 'O'
+            ? '\u0733\u0718' // Eastern O stored as (ow)
+            : map(c, fromTo);
+      break;
+    default:
+      m = map(c, fromTo);
+      break;
+  }
+  return m;
+};
+
+/**
  * Aramaic Western Mapper
  * @const
  * @type { Mapper }
  */
-export const westernMapper = new Mapper(calWriting, westernSyriacWriting);
+export const westernMapper = new Mapper(
+  calWriting,
+  westernSyriacWriting,
+  westernCallback
+);
 
 /**
  * Convert from CAL to Eastern Syriac Unicode - only vowels differ from western

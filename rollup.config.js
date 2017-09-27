@@ -9,7 +9,7 @@ const isDev = process.env.BUILD === 'dev';
 const banner = isProduction
   ? '/**\n' +
     '* @file Cal to Syriac Unicode conversion\n' +
-    '* @version 1.0.1\n' +
+    '* @version 1.0.2\n' +
     '* @author Greg Borota\n' +
     '* @copyright (c) 2017 Greg Borota.\n' +
     '* @license MIT\n' +

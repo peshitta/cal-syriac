@@ -8,7 +8,11 @@ describe('CAL', () => {
       const wordExpected = 'ܕܩܣܪܝܐ-ܕܦܝܠܝܦܘܣ';
       const vocalised = sut.toEasternSyriac("d'qesariya)-d,p,yilyip'wOs");
       const vocalisedExpected = 'ܕ݁ܩܹܣܲܪܼܝܲܐ-ܕ݂ܦ݂ܝܼܠܝܼܦ݁ܘܿܣ';
-      test.strictEqual(word, wordExpected, 'sut.toEasternSyriac_generic consonant');
+      test.strictEqual(
+        word,
+        wordExpected,
+        'sut.toEasternSyriac_generic consonant'
+      );
       test.strictEqual(
         vocalised,
         vocalisedExpected,
@@ -126,7 +130,10 @@ describe('CAL', () => {
         sut.easternMapper.toWriting.vowels.length,
         'Length differs'
       );
-      test.ok(sut.easternMapper.fromWriting.vowels.length > 5, 'Length greater than 5');
+      test.ok(
+        sut.easternMapper.fromWriting.vowels.length > 5,
+        'Length greater than 5'
+      );
     });
     it('Diacritics length', () => {
       test.strictEqual(
@@ -134,7 +141,10 @@ describe('CAL', () => {
         sut.easternMapper.toWriting.diacritics.length,
         'Length differs'
       );
-      test.ok(sut.easternMapper.fromWriting.diacritics.length === 4, 'Length equal to 4');
+      test.ok(
+        sut.easternMapper.fromWriting.diacritics.length === 4,
+        'Length equal to 4'
+      );
     });
   });
 });
@@ -180,7 +190,10 @@ describe('CAL', () => {
         sut.westernMapper.toWriting.vowels.length,
         'Length differs'
       );
-      test.ok(sut.westernMapper.fromWriting.vowels.length > 5, 'Length greater than 5');
+      test.ok(
+        sut.westernMapper.fromWriting.vowels.length > 5,
+        'Length greater than 5'
+      );
     });
     it('Diacritics length', () => {
       test.strictEqual(
@@ -188,7 +201,62 @@ describe('CAL', () => {
         sut.westernMapper.toWriting.diacritics.length,
         'Length differs'
       );
-      test.ok(sut.westernMapper.fromWriting.diacritics.length === 4, 'Length equal to 4');
+      test.ok(
+        sut.westernMapper.fromWriting.diacritics.length === 4,
+        'Length equal to 4'
+      );
+    });
+  });
+});
+
+describe('CAL', () => {
+  describe('To Western Syriac', () => {
+    it('General case usage, with one-to-one mapping', () => {
+      const word = sut.toWesternSyriac('ktb)');
+      const wordExpected = 'ܟܬܒܐ';
+      const vocalised = sut.toWesternSyriac("k't,ob,o)");
+      const vocalisedExpected = 'ܟ݁ܬ݂ܳܒ݂ܳܐ';
+      test.strictEqual(
+        word,
+        wordExpected,
+        'sut.toWesternSyriac_generic consonant'
+      );
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'sut.toWesternSyriac_generic vocalised'
+      );
+    });
+    it('Word with (yi) => (i;) mapping', () => {
+      const word = sut.toWesternSyriac('dylydwth');
+      const wordExpected = 'ܕܝܠܝܕܘܬܗ';
+      const vocalised = sut.toWesternSyriac("d'yilyid,wut,eh");
+      const vocalisedExpected = 'ܕ݁ܺܝܠܺܝܕ݂ܽܘܬ݂ܶܗ';
+      test.strictEqual(word, wordExpected, 'sut.toWesternSyriac_yi consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'sut.toWesternSyriac_yi vocalised'
+      );
+      test.strictEqual(word, wordExpected, 'sut.toWesternSyriac_yi consonant');
+    });
+    it('Word with short Eastern (E) => (e) mapping', () => {
+      const word = sut.toWesternSyriac(')wld');
+      const wordExpected = 'ܐܘܠܕ';
+      const vocalised = sut.toWesternSyriac(')awled,');
+      const vocalisedExpected = 'ܐܰܘܠܶܕ݂';
+      const vocalisedEastern = sut.toWesternSyriac(')awlEd,');
+      test.strictEqual(word, wordExpected, 'sut.toWesternSyriac_Ee consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'sut.toWesternSyriac_Ee vocalised'
+      );
+      test.strictEqual(
+        vocalisedEastern,
+        vocalisedExpected,
+        'sut.toWesternSyriac_Ee vocalised eastern'
+      );
     });
   });
 });
