@@ -8,7 +8,7 @@
 [![devDependencies Status](https://david-dm.org/peshitta/cal-syriac/dev-status.svg)](https://david-dm.org/peshitta/cal-syriac?type=dev)
 [![Coverage Status](https://coveralls.io/repos/github/peshitta/cal-syriac/badge.svg?branch=master)](https://coveralls.io/github/peshitta/cal-syriac?branch=master)
 
-Cal to Syriac Unicode conversion
+CAL Code to Syriac Unicode conversion
 
 ## Installation
 
@@ -25,7 +25,7 @@ Following bundles are available:
 libraries and applications
 
 The package could also be downloaded directly from:
-[https://registry.npmjs.org/cal-syriac/-/cal-syriac-1.0.2.tgz](https://registry.npmjs.org/cal-syriac/-/cal-syriac-1.0.2.tgz)
+[https://registry.npmjs.org/cal-syriac/-/cal-syriac-1.0.3.tgz](https://registry.npmjs.org/cal-syriac/-/cal-syriac-1.0.3.tgz)
 
 ## More information
 
@@ -34,6 +34,9 @@ The package could also be downloaded directly from:
 [Beth Mardutho](https://sedra.bethmardutho.org/about/fonts)
 
 [CAL](http://cal1.cn.huc.edu/searching/fullbrowser.html)
+
+For Syriac to CAL conversion see:
+[syriac-cal](https://github.com/peshitta/syriac-cal)
 
 ## License
 
@@ -60,42 +63,42 @@ npm run build
 
 ## API Reference
 
-* [cal](#module_cal)
-    * [.easternMapper](#module_cal.easternMapper) : <code>Mapper</code>
-    * [.westernMapper](#module_cal.westernMapper) : <code>Mapper</code>
-    * [.toEasternSyriac](#module_cal.toEasternSyriac) ⇒ <code>string</code>
-    * [.toWesternSyriac](#module_cal.toWesternSyriac) ⇒ <code>string</code>
+* [calSyriac](#module_calSyriac)
+    * [.easternMapper](#module_calSyriac.easternMapper) : <code>Mapper</code>
+    * [.westernMapper](#module_calSyriac.westernMapper) : <code>Mapper</code>
+    * [.toEasternSyriac](#module_calSyriac.toEasternSyriac) ⇒ <code>string</code>
+    * [.toWesternSyriac](#module_calSyriac.toWesternSyriac) ⇒ <code>string</code>
 
-<a name="module_cal.easternMapper"></a>
+<a name="module_calSyriac.easternMapper"></a>
 
-### cal.easternMapper : <code>Mapper</code>
+### calSyriac.easternMapper : <code>Mapper</code>
 Aramaic Eastern Mapper
 
-**Kind**: static constant of [<code>cal</code>](#module_cal)  
-<a name="module_cal.westernMapper"></a>
+**Kind**: static constant of [<code>calSyriac</code>](#module_calSyriac)  
+<a name="module_calSyriac.westernMapper"></a>
 
-### cal.westernMapper : <code>Mapper</code>
+### calSyriac.westernMapper : <code>Mapper</code>
 Aramaic Western Mapper
 
-**Kind**: static constant of [<code>cal</code>](#module_cal)  
-<a name="module_cal.toEasternSyriac"></a>
+**Kind**: static constant of [<code>calSyriac</code>](#module_calSyriac)  
+<a name="module_calSyriac.toEasternSyriac"></a>
 
-### cal.toEasternSyriac ⇒ <code>string</code>
+### calSyriac.toEasternSyriac ⇒ <code>string</code>
 Convert from CAL to Eastern Syriac Unicode - only vowels differ from western
 
-**Kind**: static constant of [<code>cal</code>](#module_cal)  
+**Kind**: static constant of [<code>calSyriac</code>](#module_calSyriac)  
 **Returns**: <code>string</code> - the input word converted to Eastern Syriac Unicode  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | word | <code>string</code> | input word in CAL code transliteration |
 
-<a name="module_cal.toWesternSyriac"></a>
+<a name="module_calSyriac.toWesternSyriac"></a>
 
-### cal.toWesternSyriac ⇒ <code>string</code>
+### calSyriac.toWesternSyriac ⇒ <code>string</code>
 Convert from CAL to Western Syriac Unicode - only vowels differ from eastern
 
-**Kind**: static constant of [<code>cal</code>](#module_cal)  
+**Kind**: static constant of [<code>calSyriac</code>](#module_calSyriac)  
 **Returns**: <code>string</code> - the input word converted to Western Syriac Unicode  
 
 | Param | Type | Description |

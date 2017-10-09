@@ -1,5 +1,4 @@
-/** @module cal */
-
+/** @module calSyriac */
 import { Writing, Mapper } from 'aramaic-mapper';
 import {
   allConsonants as calConsonants,
