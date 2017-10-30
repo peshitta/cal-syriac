@@ -235,10 +235,25 @@ describe('CAL', () => {
 describe('CAL', () => {
   describe('To Western Syriac', () => {
     it('General case usage, with one-to-one mapping', () => {
-      const word = sut.toWesternSyriac('ktb)');
-      const wordExpected = 'ܟܬܒܐ';
-      const vocalised = sut.toWesternSyriac("k't,ob,o)");
-      const vocalisedExpected = 'ܟ݁ܬ݂ܳܒ݂ܳܐ';
+      let word = sut.toWesternSyriac('ktb)');
+      let wordExpected = 'ܟܬܒܐ';
+      let vocalised = sut.toWesternSyriac("k't,ob,o)");
+      let vocalisedExpected = 'ܟ݁ܬ݂ܳܒ݂ܳܐ';
+      test.strictEqual(
+        word,
+        wordExpected,
+        'sut.toWesternSyriac_generic consonant'
+      );
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'sut.toWesternSyriac_generic vocalised'
+      );
+
+      word = sut.toWesternSyriac('dqsry)-dpylypws');
+      wordExpected = 'ܕܩܣܪܝܐ-ܕܦܝܠܝܦܘܣ';
+      vocalised = sut.toWesternSyriac("d'qesariya)-d,p,yilyip'wOs");
+      vocalisedExpected = 'ܕ݁ܩܶܣܰܪܺܝܰܐ-ܕ݂ܦ݂ܺܝܠܺܝܦ݁ܳܘܣ';
       test.strictEqual(
         word,
         wordExpected,
