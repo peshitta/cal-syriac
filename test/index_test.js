@@ -56,15 +56,38 @@ describe('CAL', () => {
       );
     });
     it('Word with (wO) => (oO) mapping', () => {
-      const word = sut.toEasternSyriac(')bhwhy');
-      const vocalised = sut.toEasternSyriac(')ab,ohawh_y');
-      const wordExpected = 'ܐܒܗܘܗܝ';
-      const vocalisedExpected = 'ܐܲܒ݂ܵܗܲܘܗ݇ܝ';
+      let word = sut.toEasternSyriac(')bhwhy');
+      let vocalised = sut.toEasternSyriac(')ab,ohawh_y');
+      let wordExpected = 'ܐܒܗܘܗܝ';
+      let vocalisedExpected = 'ܐܲܒ݂ܵܗܲܘܗ݇ܝ';
       test.strictEqual(word, wordExpected, 'sut.toEasternSyriac_wO consonant');
       test.strictEqual(
         vocalised,
         vocalisedExpected,
         'sut.toEasternSyriac_wO vocalised'
+      );
+
+      word = sut.toEasternSyriac('wt$bwxt)');
+      wordExpected = 'ܘܬܫܒܘܚܬܐ';
+      vocalised = sut.toEasternSyriac("wt,E$b'wOxt'o)");
+      vocalisedExpected = 'ܘܬ݂ܸܫܒ݁ܘܿܚܬ݁ܵܐ';
+      test.strictEqual(word, wordExpected, 'sut.toEasternSyriac_wu consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'sut.toEasternSyriac_wu vocalised'
+      );
+    });
+    it('Word with (ye) => (e;) mapping', () => {
+      const word = sut.toEasternSyriac('byt');
+      const vocalised = sut.toEasternSyriac("b'yet,");
+      const wordExpected = 'ܒܝܬ';
+      const vocalisedExpected = 'ܒ݁ܝܹܬ݂';
+      test.strictEqual(word, wordExpected, 'toEasternSyriac_ye consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'toEasternSyriac_ye vocalised'
       );
     });
     it('Word with Palestinian P', () => {
@@ -256,6 +279,41 @@ describe('CAL', () => {
         vocalisedEastern,
         vocalisedExpected,
         'sut.toWesternSyriac_Ee vocalised eastern'
+      );
+    });
+    it('Word with (ye) => (e;) mapping', () => {
+      const word = sut.toWesternSyriac('byt');
+      const vocalised = sut.toWesternSyriac("b'yet,");
+      const wordExpected = 'ܒܝܬ';
+      const vocalisedExpected = 'ܒ݁ܶܝܬ݂';
+      test.strictEqual(word, wordExpected, 'toWesternSyriac_ye consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'toWesternSyriac_ye vocalised'
+      );
+    });
+    it('Word with (wO) => (oO) mapping', () => {
+      let word = sut.toWesternSyriac(')bhwhy');
+      let vocalised = sut.toWesternSyriac(')ab,ohawh_y');
+      let wordExpected = 'ܐܒܗܘܗܝ';
+      let vocalisedExpected = 'ܐܰܒ݂ܳܗܰܘܗ݇ܝ';
+      test.strictEqual(word, wordExpected, 'sut.toWesternSyriac_wO consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'sut.toWesternSyriac_wO vocalised'
+      );
+
+      word = sut.toWesternSyriac('wt$bwxt)');
+      wordExpected = 'ܘܬܫܒܘܚܬܐ';
+      vocalised = sut.toWesternSyriac("wt,E$b'wOxt'o)");
+      vocalisedExpected = 'ܘܬ݂ܶܫܒ݁ܳܘܚܬ݁ܳܐ';
+      test.strictEqual(word, wordExpected, 'sut.toWesternSyriac_wu consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'sut.toWesternSyriac_wu vocalised'
       );
     });
   });

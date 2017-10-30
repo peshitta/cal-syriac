@@ -10,7 +10,10 @@ import {
   easternCommonVowels as easternSyriacCommonVowels,
   easternOnlyVowels as easternSyriacOnlyVowels,
   westernVowels as westernSyriacVowels,
-  commonDiacritics as syriacDiacritics
+  commonDiacritics as syriacDiacritics,
+  consonantsByName as syriacConsonantsByName,
+  easternVowelsByName as syriacEasternVowelsByName,
+  westernVowelsByName as syriacWesternVowelsByName
 } from 'syriac-code-util';
 
 /**
@@ -21,6 +24,8 @@ import {
  */
 const calWriting = new Writing(calConsonants, calVowels, calDiacritics);
 
+const reversedPe = '\u0727';
+
 /**
  * @private
  * Syriac destination writing with Eastern vowels
@@ -29,10 +34,14 @@ const calWriting = new Writing(calConsonants, calVowels, calDiacritics);
  */
 const easternSyriacWriting = new Writing(
   // + Palestinian and Hebrew Shin
-  Object.freeze(syriacConsonants.concat('\u0727', '\u0723')),
+  Object.freeze(
+    syriacConsonants.concat(reversedPe, syriacConsonantsByName.semkath)
+  ),
   Object.freeze(
     // duplicate the . under diacritic for i and u
-    easternSyriacCommonVowels.concat(['\u073C'].concat(easternSyriacOnlyVowels))
+    easternSyriacCommonVowels.concat(
+      [syriacEasternVowelsByName.hbasaEsasa].concat(easternSyriacOnlyVowels)
+    )
   ),
   syriacDiacritics
 );
@@ -52,9 +61,16 @@ export const easternMapper = new Mapper(calWriting, easternSyriacWriting);
  */
 const westernSyriacWriting = new Writing(
   // + Palestinian and Hebrew Shin
-  Object.freeze(syriacConsonants.concat('\u0727', '\u0723')),
+  Object.freeze(
+    syriacConsonants.concat(reversedPe, syriacConsonantsByName.semkath)
+  ),
   // CAL eastern short E and O mapped to western Rbasa and Esasa respectively
-  Object.freeze(westernSyriacVowels.concat('\u0736', '\u073D')),
+  Object.freeze(
+    westernSyriacVowels.concat(
+      syriacWesternVowelsByName.rbasa,
+      syriacWesternVowelsByName.esasa
+    )
+  ),
   syriacDiacritics
 );
 
@@ -82,15 +98,17 @@ const westernCallback = (word, i, fromTo) => {
     case 'y':
       m =
         word.charAt(i + 1) === 'i'
-          ? '\u073A\u071D' // Western Syriac stores as (iy)
-          : map(c, fromTo);
+          ? `${syriacWesternVowelsByName.hbasa}${syriacConsonantsByName.yod}` // Western Syriac stores as (iy)
+          : word.charAt(i + 1) === 'e'
+            ? `${syriacWesternVowelsByName.rbasa}${syriacConsonantsByName.yod}` // Western Syriac stores as (ey)
+            : map(c, fromTo);
       break;
     case 'w':
       m =
         word.charAt(i + 1) === 'u'
-          ? '\u073D\u0718' // Western Syriac stores as (uw)
+          ? `${syriacWesternVowelsByName.esasa}${syriacConsonantsByName.waw}` // Western Syriac stores as (uw)
           : word.charAt(i + 1) === 'O'
-            ? '\u0733\u0718' // Eastern O stored as (ow)
+            ? `${syriacWesternVowelsByName.zqapha}${syriacConsonantsByName.waw}` // Eastern O stored as (ow)
             : map(c, fromTo);
       break;
     default:
