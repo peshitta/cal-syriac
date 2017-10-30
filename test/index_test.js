@@ -293,6 +293,18 @@ describe('CAL', () => {
         'toWesternSyriac_ye vocalised'
       );
     });
+    it('With un-mapped char', () => {
+      const word = sut.toWesternSyriac('byt+');
+      const vocalised = sut.toWesternSyriac("b'yet,+");
+      const wordExpected = 'ܒܝܬ+';
+      const vocalisedExpected = 'ܒ݁ܶܝܬ݂+';
+      test.strictEqual(word, wordExpected, 'toWesternSyriac_ye consonant');
+      test.strictEqual(
+        vocalised,
+        vocalisedExpected,
+        'toWesternSyriac_ye vocalised'
+      );
+    });
     it('Word with (wO) => (oO) mapping', () => {
       let word = sut.toWesternSyriac(')bhwhy');
       let vocalised = sut.toWesternSyriac(')ab,ohawh_y');
