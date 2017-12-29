@@ -3,7 +3,9 @@ import { Writing, Mapper } from 'aramaic-mapper';
 import {
   allConsonants as calConsonants,
   vowels as calVowels,
-  diacritics as calDiacritics
+  diacritics as calDiacritics,
+  isVowel,
+  isBdwlPrefix
 } from 'cal-code-util';
 import {
   consonants as syriacConsonants,
@@ -76,6 +78,26 @@ const westernSyriacWriting = new Writing(
 
 /**
  * @private
+ * Return true Y|w+vowel is flipped a la Sedra
+ * @param { string } word word to test
+ * @param { number } index position in word to start checking from
+ * @returns { boolean } true if Y|w+vowel is flipped
+ */
+const isYwFlipped = (word, index) => {
+  if (index < 1) {
+    return false; // can't start word with a vowel
+  }
+  if (isVowel(word.charAt(index - 1))) {
+    return false; // can't follow vowel by vowel
+  }
+  if (word.charAt(index - 1) === ')') {
+    return index === 1 || isBdwlPrefix(word, index - 2); // initial Alap is followed by vowel
+  }
+  return true;
+};
+
+/**
+ * @private
  * Maps input character to Syriac char
  * @param { string } c input character
  * @param { Object.<string, string> } fromTo mapping dictionary
@@ -98,17 +120,23 @@ const westernCallback = (word, i, fromTo) => {
     case 'y':
       m =
         word.charAt(i + 1) === 'i'
-          ? `${syriacWesternVowelsByName.hbasa}${syriacConsonantsByName.yod}` // Western Syriac stores as (iy)
+          ? isYwFlipped(word, i)
+            ? `${syriacWesternVowelsByName.hbasa}${syriacConsonantsByName.yod}`
+            : `${syriacConsonantsByName.yod}${syriacWesternVowelsByName.hbasa}`
           : word.charAt(i + 1) === 'e'
-            ? `${syriacWesternVowelsByName.rbasa}${syriacConsonantsByName.yod}` // Western Syriac stores as (ey)
+            ? isYwFlipped(word, i)
+              ? `${syriacWesternVowelsByName.rbasa}${syriacConsonantsByName.yod}`
+              : `${syriacConsonantsByName.yod}${syriacWesternVowelsByName.rbasa}`
             : map(c, fromTo);
       break;
     case 'w':
       m =
         word.charAt(i + 1) === 'u'
-          ? `${syriacWesternVowelsByName.esasa}${syriacConsonantsByName.waw}` // Western Syriac stores as (uw)
+          ? isYwFlipped(word, i)
+            ? `${syriacWesternVowelsByName.esasa}${syriacConsonantsByName.waw}`
+            : `${syriacConsonantsByName.waw}${syriacWesternVowelsByName.esasa}`
           : word.charAt(i + 1) === 'O'
-            ? `${syriacWesternVowelsByName.zqapha}${syriacConsonantsByName.waw}` // Eastern O stored as (ow)
+            ? `${syriacWesternVowelsByName.zqapha}${syriacConsonantsByName.waw}`
             : map(c, fromTo);
       break;
     default:
